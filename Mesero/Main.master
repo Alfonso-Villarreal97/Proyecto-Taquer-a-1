@@ -1,0 +1,88 @@
+<%@ Master Language="C#" AutoEventWireup="true" Src="Main.master.cs" Inherits="Main" %>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url(img/Fondo_Mos.jpg);    
+            background-size: cover;
+            background-position: center;
+            background-repeat: repeat;  
+        }
+
+        #sidebar {
+            width: 200px;
+            min-height: 100%;
+            background: #D88B16;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            z-index: 2;
+        }
+
+        #sidebar a{
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 15px 80px 15px 15px;
+        }
+
+        #sidebar ul {
+            padding: 15px;
+            margin: 0;
+            list-style-type: none;
+        }
+
+        #sidebar ul li {
+            padding: 15px;
+            border-bottom: 2px solid #000000;
+            color: white;
+            cursor: pointer;
+        }
+
+        #sidebar ul li:hover {
+            background-color: #FF9900;
+        }
+
+        #sidebar ul li:active{
+            background-color: #FF9900;
+        }
+
+        #sidebar ul li:last-child {
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <form id="forml" runat="server">
+        <div id="sidebar">
+            <ul>
+                <li>
+                    <asp:LinkButton runat="server" OnClick="lnkInicio_click" Text="Inicio" />
+                </li>
+                <li>
+                    <asp:LinkButton runat="server" OnClick="lnkOrden_click" Text="Orden" />
+                </li>
+                <li>
+                    <asp:LinkButton runat="server" OnClick="lnkMenu_click" Text="Menu" />
+                </li>  
+                <li>
+                    <asp:LinkButton runat="server" OnClick="lnkSalir_click" Text="Salir" />
+                </li>
+            </ul>
+        </div>
+
+        <div id="content">
+            <h1>Menu</h1>
+            <asp:ContentPlaceHolder id="head" runat="server"></asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder id="content" runat="server"></asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>
+
