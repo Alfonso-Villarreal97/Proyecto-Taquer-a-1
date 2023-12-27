@@ -19,8 +19,11 @@
                     <label>Password:</label>
                     <asp:TextBox runat="server" ID="txtPassword" TextMode="Password" CssClass="txtUsuario">
                     </asp:TextBox>
-                </div>                
-                <asp:Button runat="server" ID="btnIngresar" Text="Ingresar" CssClass="btnIngresar" OnClick="btnIngresar_Click" />            
+                </div>
+                
+                <div class="btnIngresar">
+                    <asp:Button runat="server" ID="btnIngresar" Text="Ingresar" CssClass="btnIngresar" OnClick="btnIngresar_Click" /> 
+                </div>                          
             </form>
         </div>
     </body>

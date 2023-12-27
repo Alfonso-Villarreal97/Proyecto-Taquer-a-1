@@ -2,10 +2,17 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <link rel="stylesheet" type="text/css" href="../css/styles.css" />
     <title></title>    
 </head>
 <body>
     <form id="forml" runat="server">
+        <div id="logo">
+            <asp:LinkButton class="lnkHome" runat="server" OnClick="lnkInicio_click">
+                        <img src="../img/Logo_Banner.jpg" />
+            </asp:LinkButton>
+        </div>       
+
         <div id="sidebar">
             <ul>
                 <li>
@@ -24,14 +31,14 @@
                     <asp:LinkButton runat="server" OnClick="lnkSalir_click" Text="Salir" />
                 </li>
             </ul>
-        </div>
+        </div>       
 
-        <div id="content">
-            <h1>Menu</h1>
+        <div id="content">            
             <asp:ContentPlaceHolder id="head" runat="server"></asp:ContentPlaceHolder>
             <asp:ContentPlaceHolder id="content" runat="server"></asp:ContentPlaceHolder>
         </div>
     </form>
+    
 </body>
 </html>
 
