@@ -68,7 +68,7 @@ form .usuario {
     transition: .5s;
 }
 
-input[type="submit"] {
+.btnIngresar input[type="submit"] {
     width: 100%;
     height: 50px;
     border: 1px solid;
@@ -80,7 +80,7 @@ input[type="submit"] {
     margin: 30px 0;
 }
 
-input[type="submit"]:hover {
+.btnIngresar [type="submit"]:hover {
     background-color: #00B9F2;
     transition: .5s;
 }
@@ -97,52 +97,145 @@ input[type="submit"]:hover {
 
 
 /* - - - - ADMIN - - - -  */
-
+/* DISEÑO MASTERPAGE */
 /* MAIN.ADMIN */
-        #sidebar {
-            width: 200px;
-            min-height: 100%;
-            background: #D88B16;
-            position: fixed;
-            left: 0;
-            top: 0;
-            overflow-y: auto;
-            z-index: 2;
-        }
+#sidebar {
+    width: 200px;
+    min-height: 100%;
+    background: var(--gray);
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow-y: auto;
+}
 
-        #sidebar a{
-            color: #FFFFFF;
-            text-decoration: none;
-            width: 10000px;
-            box-sizing: border-box;
-            padding: 15px 80px 15px 15px;
-        }
+#sidebar ul {
+    padding: 15px;
+    margin: 0;
+    list-style-type: none;
+}
 
-        #sidebar ul {
-            padding: 15px;
-            margin: 0;
-            list-style-type: none;
-        }
+#sidebar li a {
+    display: block;
+    width: auto;
+    color: #FFFFFF;
+    text-decoration: none;
+    box-sizing: border-box;
+}
 
-        #sidebar ul li {
-            padding: 15px;
-            border-bottom: 2px solid #000000;
-            color: white;
-            cursor: pointer;
-            box-sizing: border-box;
-            width: 100%
-        }
+#sidebar ul li {
+    padding: 15px;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    box-sizing: border-box;
+    width: 100%
+}
 
-        #sidebar ul li:hover {            
-            background-color: #FF9900;
-        }
-        
-        
-        #sidebar ul li:active{
-            background-color: #FF9900;
-        }
+#sidebar ul li:hover {
+    background-color: #00B9F2;
+    transition: .5s;
+}
 
-        #sidebar ul li:last-child {            
-            position: absolute;
-            bottom: 0;
-        }
+#sidebar ul li a.active {
+    background-color: #0C7ECF;
+}
+
+#sidebar ul li:last-child {
+    position: absolute;
+    bottom: 10px;
+    width: 85%;
+    box-sizing: border-box;
+}
+
+#sidebar ul li:last-child:hover {
+    background-color: #c32121;
+    transition: .5s;
+}
+
+/* MAIN.ADMIN BANNER */
+#logo .lnkHome img {
+    position: absolute;
+    top: 10px;
+    right: 45px;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+}
+
+/* DISEÑO INICIO */
+/* Solo es un simple logo en el centro :D */
+.menu-container img {
+    position: absolute;
+    max-height: 400px;
+    display: block;
+    border-radius: 50%;
+    margin: 20vh 90vh;
+}
+
+/* DISEÑO VENTAS */
+.ventas .bannerVenta h2{
+    margin-top: 30px;
+    text-align: center;
+    color: black;
+}
+
+.ventas .contenido-ventas .search{
+    margin-bottom: 20px;
+    text-align: center;
+    color: black;
+}
+
+.calendarios{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.calendarios input[type="date"]{
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    outline: none;
+}
+
+.calendarios input[type="date"]:hover,
+.calendarios input[type="date"]:focus {
+    border-color: #333;
+}
+
+.fechaDel,
+.fechaAl {
+    margin-right: 20px;
+}
+
+.tableVentas {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.tableVentas table {
+    width: 70%;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tableVentas th, .tableVentas td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.tableVentas th {
+    background-color: #f2f2f2;
+}
+
+.tableVentas tr:hover {
+    background-color: #f5f5f5;
+}
+
