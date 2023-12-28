@@ -29,4 +29,9 @@ public class MenusController : Page
     {
 
     }
+
+    protected void btnFindUser_Click(object sender, EventArgs e)
+    {
+        
+    }
 }
