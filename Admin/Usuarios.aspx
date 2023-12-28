@@ -114,8 +114,6 @@
                             <div class="inputs">
                                 <asp:TextBox runat="server" ID="txtNombreDel" placeholder="Ingrese el nombre"
                                     CssClass="styled-textbox"></asp:TextBox>
-                                <asp:TextBox runat="server" ID="txtApellidoDel" placeholder="Ingrese el apellido"
-                                    CssClass="styled-textbox"></asp:TextBox>
                                 <asp:TextBox runat="server" ID="txtUsuarioDel" placeholder="Ingrese el usuario"
                                     CssClass="styled-textbox"></asp:TextBox>
                             </div>
