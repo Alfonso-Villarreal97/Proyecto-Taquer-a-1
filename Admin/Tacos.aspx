@@ -1,5 +1,5 @@
 <%@ Page Language="C#" MasterPageFile="MainAdmin.master" AutoEventWireup="true" Src="Productos.aspx.cs"
-    Inherits="MenusController" Title="Productos" %>
+    Inherits="MenusController" Title="Tacos" %>
 
     <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
         <link rel="stylesheet" type="text/css" href="css/styles.css" />
@@ -9,7 +9,6 @@
 
         <div class="bannerMenus">
             <h2>Registro de alimentos y bebidas al menu del dia</h2>
-            <img src="img/agregar.jpeg" alt="menus" />
         </div>
 
         <div class="menu-containerMenus">
