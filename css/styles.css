@@ -9,16 +9,8 @@
     --red: #c32121;
 }
 
-/* - - - - Login  - - - - */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: var(--white);
-    height: 100vh;
-}
-
-.formulario {
+/* =/=/=/=/=/=/=/= DISEÑO DEFAULT =/=/=/=/=/=/=/= */
+.default-container{
     position: absolute;
     top: 50%;
     left: 50%;
@@ -29,14 +21,48 @@ body {
     box-shadow: 7px 13px 37px #000;
 }
 
-.formulario h1 {
+.default-container h1{
     text-align: center;
     padding: 0 0 20px 0;
     border-bottom: 1px solid silver;
     color: white;
 }
 
-.formulario form {
+.default-container img{
+    margin: 20vh;
+    max-height: 600px;
+    border-radius: 50%;   
+}
+
+
+/* - - - - Login  - - - - */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--white);
+    height: 100vh;
+}
+
+.formulario-login {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    border-radius: 10px;
+    background: var(--gray2);
+    box-shadow: 7px 13px 37px #000;
+}
+
+.formulario-login h1 {
+    text-align: center;
+    padding: 0 0 20px 0;
+    border-bottom: 1px solid silver;
+    color: white;
+}
+
+.formulario-login form {
     padding: 0 40px;
     box-sizing: border-box;
 }
@@ -59,10 +85,11 @@ form .usuario {
     color: white;
 }
 
-.usuario label {
+#content_lblUsuario,
+#content_lblPassword {
     position: absolute;
     top: -10px;
-    left: 5px;
+    left: 15px;
     color: var(--gray);
     transform: translateY(-50%);
     font-size: 16px;
@@ -71,7 +98,8 @@ form .usuario {
 }
 
 .btnIngresar input[type="submit"] {
-    width: 100%;
+    width: 50%;
+    display: flex;
     height: 50px;
     border: 1px solid;
     background: #0C7ECF;
@@ -79,7 +107,8 @@ form .usuario {
     color: #FFF;
     cursor: pointer;
     outline: none;
-    margin: 30px 0;
+    justify-content: center;
+    margin: 30px auto;
 }
 
 .btnIngresar [type="submit"]:hover {
@@ -87,7 +116,7 @@ form .usuario {
     transition: .5s;
 }
 
-.formulario #imgLogo {
+#content_imgLogo {
     margin: 20px 0 10px 0;
     max-width: 50%;
     height: auto;
