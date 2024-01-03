@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="Main.master" AutoEventWireup="true" Src="Orden.aspx.cs"
+<%@ Page Language="C#" MasterPageFile="MainMesero.master" AutoEventWireup="true" Src="Orden.aspx.cs"
     Inherits="OrdenController" Title="Orden" %>
 
     <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -6,7 +6,7 @@
     </asp:Content>
 
     <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">
-
+        <!--ToDo: Rediseñar vista-->
         <div class="banner">
             <h2>Visualizar resumen de orden o pedido</h2>
             <div class="imgOrden">

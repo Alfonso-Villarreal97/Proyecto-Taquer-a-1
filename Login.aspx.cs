@@ -18,7 +18,7 @@ public class NuevoController : Page {
 	
 	protected void btnIngresar_Click(object sender, EventArgs e)
 	{		
-			
+		Response.Redirect("Mesero/Inicio.aspx");
 	}
 
 

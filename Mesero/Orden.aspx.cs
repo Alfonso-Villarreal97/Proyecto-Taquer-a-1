@@ -7,16 +7,10 @@ using System.Collections.Generic;
 
 public class OrdenController : Page
 {
-    public ListBox lstComida, lstBebidas, lstResumen;
-    public TextBox txtPrecioComida, txtPrecioBebidas, txtPrecioResumen;
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
-        {
-            CargarMenuComida();
-            
-        }
+        
     }
 
     protected void CargarMenuComida()

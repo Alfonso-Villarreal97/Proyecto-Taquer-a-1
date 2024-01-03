@@ -1,5 +1,5 @@
 <%@ Page Language="C#" 
-    MasterPageFile="Main.master"
+    MasterPageFile="MainMesero.master"
     AutoEventWireup="true"
     Src="Inicio.aspx.cs" 
     Inherits="InicioController" 
@@ -9,13 +9,9 @@
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
 </asp:Content>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">
-    <div class="banner">
-        <h2>Bienvenido a la sesion, mesero</h2>        
-    </div>
-    
-    <div class="imgInicio">
-        <img src="img/Mesero.jpg" alt="Mesero">
+<asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">   
+    <div class="menu-container">
+        <img src="../img/Mesero.jpg" alt="Mesero">
     </div>
 </asp:Content>
 
