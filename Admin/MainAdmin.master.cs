@@ -21,7 +21,9 @@ public class Main : MasterPage {
     }
 
     protected void lnkSalir_click(object sender, EventArgs e) {
-        // Agrega aquí el código para manejar la acción de salir
+        // Cierra la sesión y redirige a la página de inicio de sesión
+		Session.Abandon();
+		Response.Redirect("~/Login.aspx"); // Reemplaza "Login.aspx" con la página correspondiente
     }
 }
 

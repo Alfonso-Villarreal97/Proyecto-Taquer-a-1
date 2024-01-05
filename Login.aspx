@@ -1,5 +1,9 @@
-<%@ Page Language="C#" MasterPageFile="Main.master" AutoEventWireup="true" Src="Login.aspx.cs"
-    Inherits="NuevoController" Title="Inicio de sesion" %>
+<%@ Page Language="C#" 
+	MasterPageFile="Main.master" 
+	AutoEventWireup="true" 
+	Src="Login.aspx.cs"
+    Inherits="Login" 
+    Title="Inicio de sesion" %>
 
     <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
         <link rel="stylesheet" type="text/css" href="css/styles.css" />
@@ -25,6 +29,9 @@
                     <asp:Button runat="server" ID="btnIngresar" Text="Ingresar" CssClass="btnIngresar"
                         OnClick="btnIngresar_Click" />
                 </div>
+                <div class="mensajeError">
+					<asp:Label runat="server" ID="lblError" CssClass="lblError"></asp:Label>
+				</div>
             </div>
         </div>
      </asp:Content>

@@ -18,32 +18,32 @@
                     <asp:Button runat="server" ID="btnFindProd" Text="Buscar" OnClick="btnFindMenu_Click"
                         CssClass="btnBuscar" />
                 </div>
-                <table>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Descripcion</th>                        
-                        <th>Precio</th>
-                        <th>Categoria</th>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </table>
+                
+                <asp:GridView ID="GridViewProductos" runat="server" AutoGenerateColumns="False" CssClass="styled-grid">
+                <Columns>
+                    <asp:BoundField DataField="Nombre" HeaderText="Nombre" SortExpression="Nombre" />
+                    <asp:BoundField DataField="Descripcion" HeaderText="Descripcion" SortExpression="Descripcion" />
+                    <asp:BoundField DataField="Precio" HeaderText="Precio" SortExpression="Precio" />
+                    <asp:BoundField DataField="Categoria" HeaderText="Categoria" SortExpression="Categoria" />
+                
+                    <asp:TemplateField HeaderText="Modificar">
+                        <ItemTemplate>
+                            <a href="#openModalMod" style="display: flex; justify-content: center; align-items: center;">
+                                <img src="../img/mod.png" alt="Modificar" width="30" height="30" style="margin: auto;"/>
+                            </a>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    
+                    <asp:TemplateField HeaderText="Eliminar">
+                        <ItemTemplate>
+                            <a href="#openModalDel" style="display: flex; justify-content: center; align-items: center;">
+                                <img src="../img/del.png" alt="Eliminar" width="30" height="30" style="margin: auto;"/>
+                            </a>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                
+                </Columns>
+				</asp:GridView>
             </div>
 
             <!-- ENLACES PARA ABRIR LOS MODALES CORRESPONDIENTES A LAS OPERACIONES CRUD-->
@@ -77,7 +77,6 @@
                 </div>
 
                 <div class="modal-body">
-                    <a href="#openModalMod" class="enlacesUsuarios">Modificar el menu</a>
                     <div id="openModalMod" class="modalDialog">
                         <div>
                             <a href="#close" title="Close" class="close">X</a>
@@ -105,7 +104,6 @@
                 </div>
 
                 <div class="modal-body">
-                    <a href="#openModalDel" class="enlacesUsuarios">Eliminar del menu</a>
                     <div id="openModalDel" class="modalDialog">
                         <div>
                             <a href="#close" title="Close" class="close">X</a>
