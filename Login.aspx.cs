@@ -30,6 +30,7 @@ public class Login : Page
 	}
 	
 	protected void btnIngresar_Click(object sender, EventArgs e)
+
 	{		
 		// Obtiene el usuario y la contraseña
         string usuario = txtUsuario.Text;
@@ -49,6 +50,10 @@ public class Login : Page
             // Muestra un mensaje de error
             lblError.Text = "Usuario o contrasenia incorrectos";
         }
+
+	{	
+			
+
 	}
 	
 	private bool UserExists(string usuario, string password)
