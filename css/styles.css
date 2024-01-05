@@ -543,7 +543,7 @@ form .usuario {
 }
 
 /* =/=/=/=/=/=/=/ DISEÑO MESERO =/=/=/=/=/=/=/=/ */
-
+/* ESTILOS MENU */
 .button-container{
     display: flex;
     flex-direction: row;
@@ -583,8 +583,7 @@ form .usuario {
 .Menu .selectores{
     display: flex;
     flex-direction: row;
-    /* justify-content: center; */
-    margin: 30px 0px 30px 410px;
+    margin: 50px 0px 30px 340px;
 }
 
 .Menu .selectores label {
@@ -599,4 +598,106 @@ form .usuario {
     border-radius: 5px;
     margin-bottom: 10px;
     border: 1px solid #0C7ECF;
+    margin-right: 100px;
+}
+
+.div-menus{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.div-menus .lstMenu{
+    margin-left: 100px;
+    width: 60%;
+    border-color: #0C7ECF;
+    height: 300px;
+    border-radius: 5px;
+}
+/* ESTILOS ORDEN */
+.btnPedido{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.btnPedido input{
+    border-radius: 5px;
+    border: 1px solid #0C7ECF;
+    padding: 5px;
+}
+
+.btnPedido input[type="submit"] {
+    width: 10%;
+    height: 35px;
+    border: 1px solid;
+    background: #0C7ECF;
+    border-radius: 25px;
+    color: #FFF;
+    cursor: pointer;
+    outline: none;
+    margin: 30px 0;
+}
+
+.btnPedido [type="submit"]:hover {
+    background-color: #00B9F2;
+    transition: .5s;
+}
+
+.Orden .banner h2{
+    margin-top: 30px;
+    margin-left: 120px;
+    text-align: center;
+    color: black;
+}
+
+.Orden .selectores{
+    display: flex;
+    flex-direction: row;
+    margin: 50px 0px 30px 340px;
+}
+
+.Orden .selectores label {
+    margin: 5px 15px;
+}
+
+.Orden .selectores .styled-dropdown{
+    display: inline;
+    align-items: center;
+    padding: 5px;
+    width: 25%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #0C7ECF;
+    margin-right: 100px;
+}
+
+.div-orden{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.div-orden .lstOrden{
+    margin-left: 100px;
+    width: 60%;
+    border-color: #0C7ECF;
+    height: 300px;
+    border-radius: 5px;
+}
+
+.labels {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    margin-left: 960px;
+}
+
+.labels label{    
+    margin-right: 10px;
+}
+
+.labels .lblPrecio{
+    border-radius: 5px;
+    border-color: #0C7ECF;
 }

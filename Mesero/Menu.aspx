@@ -34,38 +34,15 @@
                         <asp:ListItem Text="Bebidas" Value="Bebidas" />
                     </asp:DropDownList>
                 </div>
-
                 <!--Pending to check: Convertir la tabla en una lista
                     Para lograr seleccionar los alimentos deseados **Roy se encarga de hacer la concatenación para la lista **-->
-                <div class="tableMenus">
-                    <table>
-                        <tr>
-                            <th>Elegir</th>
-                            <th>Nombre</th>
-                            <th>Categoria</th>
-                            <th>Precio</th>
-                        </tr>
-                        <tr>
-                            <td><asp:CheckBox ID="chkElegir1" runat="server" /></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td><asp:CheckBox ID="chkElegir2" runat="server" /></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td><asp:CheckBox ID="chkElegir3" runat="server" /></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </table>
+                    <div class="listMenus">
+                        <div class="div-menus">
+                            <asp:ListBox runat="server" ID="lstMenu" CssClass="lstMenu" SelectionMode="Single">
+                                <asp:ListItem Text="Dummy" Value="Dummy" />
+                            </asp:ListBox>
+                        </div>
                 </div>
-
                 <div class="button-container">
                     <asp:Button runat="server" ID="btnAdd" Text="Agregar a la orden" OnClick="btnEliminarMenu_Click"
                         CssClass="styled-button" />
