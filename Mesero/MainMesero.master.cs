@@ -17,6 +17,8 @@ public class Main : MasterPage {
     }
 
     protected void lnkSalir_Click(object sender, EventArgs e) {
-        Response.Redirect("Salir.aspx"); // Reemplaza "Tacos.aspx" con la página correspondiente
+        // Cierra la sesión y redirige a la página de inicio de sesión
+		Session.Abandon();
+		Response.Redirect("~/Login.aspx"); // Reemplaza "Login.aspx" con la página correspondiente
     }
 }
