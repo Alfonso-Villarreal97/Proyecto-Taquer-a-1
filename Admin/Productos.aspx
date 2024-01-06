@@ -17,7 +17,13 @@
                     <asp:TextBox runat="server" ID="txtSearchProd" CssClass="styled-textbox"></asp:TextBox>
                     <asp:Button runat="server" ID="btnFindProd" Text="Buscar" OnClick="btnFindMenu_Click"
                         CssClass="btnBuscar" />
+                    
+                    <div class="addMenu">
+                        <a href="#openModalAdd" class="enlacesUsuarios">Agregar al menu</a>
+                    </div>
+                    
                 </div>
+
                 
                 <asp:GridView ID="GridViewProductos" runat="server" AutoGenerateColumns="False" CssClass="styled-grid">
                 <Columns>
@@ -29,7 +35,7 @@
                     <asp:TemplateField HeaderText="Modificar">
                         <ItemTemplate>
                             <a href="#openModalMod" style="display: flex; justify-content: center; align-items: center;">
-                                <img src="../img/mod.png" alt="Modificar" width="30" height="30" style="margin: auto;"/>
+                                <img src="../img/editar.png" alt="Modificar" style="margin: auto;"/>
                             </a>
                         </ItemTemplate>
                     </asp:TemplateField>
@@ -37,7 +43,7 @@
                     <asp:TemplateField HeaderText="Eliminar">
                         <ItemTemplate>
                             <a href="#openModalDel" style="display: flex; justify-content: center; align-items: center;">
-                                <img src="../img/del.png" alt="Eliminar" width="30" height="30" style="margin: auto;"/>
+                                <img src="../img/borrar.png" alt="Eliminar" width="30" height="30" style="margin: auto;"/>
                             </a>
                         </ItemTemplate>
                     </asp:TemplateField>
@@ -48,8 +54,7 @@
 
             <!-- ENLACES PARA ABRIR LOS MODALES CORRESPONDIENTES A LAS OPERACIONES CRUD-->
             <div class="links">
-                <div class="modal-body">
-                    <a href="#openModalAdd" class="enlacesUsuarios">Agregar al menu</a>
+                <div class="modal-body">                    
                     <div id="openModalAdd" class="modalDialog">
                         <div>
                             <a href="#close" title="Close" class="close">X</a>
@@ -109,8 +114,7 @@
                             <a href="#close" title="Close" class="close">X</a>
                             <h2>Eliminar del menu</h2>
                             <div class="inputs">
-                                <asp:TextBox runat="server" ID="txtNombreProdDel" placeholder="Ingrese el nombre del producto"
-                                    CssClass="styled-textbox"></asp:TextBox>
+                                <label for="ddlCategoriaProd">Desea eliminar el producto? </label>
                             </div>
                             <asp:Button runat="server" ID="btnEliminarMenu" Text="Eliminar"
                                 OnClick="btnEliminarMenu_Click" CssClass="styled-button" />
