@@ -18,7 +18,7 @@ public class MenusController : Page
     public DropDownList ddlCategoriaMod;
     public GridView GridViewProductos;
     
-    string connectionString = "Server=localhost;Database=bdtaque;Uid=root;Pwd=toor;SSLMode=none";
+    string connectionString = "Server=localhost;Database=bdtaque;Uid=root;Pwd=;SSLMode=preferred";
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -140,7 +140,7 @@ public class MenusController : Page
 
     protected void btnEliminarMenu_Click(object sender, EventArgs e)
     {
-
+        
     }
 
     protected void btnFindMenu_Click(object sender, EventArgs e)

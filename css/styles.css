@@ -358,6 +358,10 @@ form .usuario {
     margin-top: 30px;
 }
 
+.addMenu{
+    margin-left: 20px;
+}
+
 .enlacesUsuarios{    
     text-decoration: none;
     color: #0C7ECF;
