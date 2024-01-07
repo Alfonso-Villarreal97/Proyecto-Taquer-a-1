@@ -9,7 +9,6 @@ CREATE TABLE Usuarios(
     Usuarios VARCHAR(50) NOT NULL,
     Password VARCHAR(50) NOT NULL,
     Nombre VARCHAR(45) NOT NULL,
-    Apellido VARCHAR(45) NOT NULL,
     Rol VARCHAR(20) NOT NULL
 );
 CREATE TABLE Productos(
@@ -21,12 +20,13 @@ CREATE TABLE Productos(
 );
 
 ALTER TABLE Productos AUTO_INCREMENT = 0;
+ALTER TABLE Usuarios AUTO_INCREMENT = 0;
 
 -- INSERCIONES DE DATOS DUMMY
-INSERT INTO Usuarios (Usuarios, Password, Nombre, Apellido, Rol) VALUES
-('Usuario1', 'Contraseña1', 'Dummy1', 'Dummylon', 'Administrador'),
-('Usuario2', 'Contraseña2', 'Dummy2', 'Dummygod', 'Mesero'),
-('Usuario3', 'Contraseña3', 'Dummy3', 'Dummyleon', 'Mesero');
+INSERT INTO Usuarios (Usuarios, Password, Nombre,  Rol) VALUES
+('Usuario1', 'Contraseña1', 'Dummy1', 'Administrador'),
+('Usuario2', 'Contraseña2', 'Dummy2', 'Mesero'),
+('Usuario3', 'Contraseña3', 'Dummy3', 'Mesero');
 
 -- ****************************** --
 -- *		HUGO SCRIPT			* --
