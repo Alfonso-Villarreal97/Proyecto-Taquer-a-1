@@ -8,22 +8,14 @@ using MySql.Data.MySqlClient;
 
 public class MenusController : Page
 {
-    public TextBox txtNombreProdAlta;
-    public TextBox txtNombreProdMod;
     public TextBox txtDescProdAlta;
-    public TextBox txtDescProdMod;
     public TextBox txtPrecioProdAlta;
-    public TextBox txtPrecioMod;
-    public TextBox txtSearchProd;
     public DropDownList ddlCategoriaProdAlta;
-    public DropDownList ddlCategoriaMod;
     public GridView GridViewProductos;
-    public TextBox txtNombre;
     public TextBox txtDesc;
     public TextBox txtPrecio;
     public DropDownList ddlCategoria;
     public DropDownList ddlCategorias;
-
     private string selectedCategoria;
 
     // Conexión P/Hugo
@@ -37,6 +29,7 @@ public class MenusController : Page
         {
             CargarDatosEnGridView();
             CargarCategoriasEnDropDownList();
+            BloquearTextFields();
         }
     }
 
@@ -65,7 +58,7 @@ public class MenusController : Page
 		ddlCategorias.Items.Clear();
 		
 		// Agregar un ítem por defecto
-		ddlCategorias.Items.Add(new ListItem("- TODOS -", ""));
+		ddlCategorias.Items.Add(new ListItem("- All -", ""));
 
 		// Añadir las categorías directamente
 		ddlCategorias.Items.Add(new ListItem("Tacos", "Tacos"));
@@ -74,6 +67,17 @@ public class MenusController : Page
 		ddlCategorias.Items.Add(new ListItem("Bebidas", "Bebidas"));
 	}
 
+    private void BloquearTextFields(){
+        ddlCategoria.Enabled = false;
+        txtDesc.Enabled = false;
+        txtPrecio.Enabled = false;
+    }
+
+    private void DesbloquearTextFields(){
+        ddlCategoria.Enabled = true;
+        txtDesc.Enabled = true;
+        txtPrecio.Enabled = true;
+    }
 
     protected void btnAgregarMenu_Click(object sender, EventArgs e)
     {
@@ -179,6 +183,7 @@ public class MenusController : Page
         
 			// Limpia los campos después de eliminar
 			LimpiarCampos();
+            BloquearTextFields();
         
         }
         catch (Exception ex)
@@ -231,12 +236,14 @@ public class MenusController : Page
     protected void btnLimpiarMenu_Click(object sender, EventArgs e)
     {
         LimpiarCampos();
+        BloquearTextFields();
     }
 
     protected void GridViewProductos_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         if (e.CommandName == "Select")
         {
+            DesbloquearTextFields();
             int rowIndex = Convert.ToInt32(e.CommandArgument);
 
             if (GridViewProductos.Rows.Count > 0 && rowIndex >= 0 && rowIndex < GridViewProductos.Rows.Count)
@@ -245,7 +252,6 @@ public class MenusController : Page
                 ddlCategoria.Enabled = false;
                 txtDesc.Text = GridViewProductos.Rows[rowIndex].Cells[1].Text;
                 txtPrecio.Text = GridViewProductos.Rows[rowIndex].Cells[2].Text;
-
                 selectedCategoria = GridViewProductos.Rows[rowIndex].Cells[0].Text;
             }
         }

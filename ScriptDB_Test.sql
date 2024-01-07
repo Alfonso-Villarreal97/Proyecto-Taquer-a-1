@@ -18,6 +18,8 @@ CREATE TABLE Productos(
     Precio DECIMAL(10, 2) NOT NULL,
     Categoria VARCHAR(50) NOT NULL
 );
+ALTER TABLE productos DROP COLUMN Nombre;
+
 
 ALTER TABLE Productos AUTO_INCREMENT = 0;
 ALTER TABLE Usuarios AUTO_INCREMENT = 0;
