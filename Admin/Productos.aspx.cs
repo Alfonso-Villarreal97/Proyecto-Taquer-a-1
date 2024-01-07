@@ -26,7 +26,10 @@ public class MenusController : Page
 
     private string selectedCategoria;
 
-    string connectionString = "Server=localhost;Database=bdtaque;Uid=root;Pwd=toor;SSLMode=preferred";
+    // Conexión P/Hugo
+    // string connectionString = "Server=localhost;Database=bdtaque;Uid=root;Pwd=toor;SSLMode=preferred";
+    //Conexión P/Diego
+    string connectionString = "Server=localhost;Database=bdtaque;Uid=root;Pwd=;SSLMode=preferred";
 
     protected void Page_Load(object sender, EventArgs e)
     {
