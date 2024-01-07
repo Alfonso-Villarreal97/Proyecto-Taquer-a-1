@@ -54,7 +54,7 @@ public class Login : Page
     private bool UserExists(string usuario, string password)
     {
         // Cadena de conexión
-        string connectionString = "Server=localhost;Database=bdtaque;Uid=root;Pwd=;SSLMode=preferred";
+        string connectionString = "Server=localhost;Database=bdtaque;Uid=root;Pwd=toor;SSLMode=preferred";
 
         // Conecta a la base de datos
         MySqlConnection conn = new MySqlConnection(connectionString);
