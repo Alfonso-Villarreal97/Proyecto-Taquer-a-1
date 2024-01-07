@@ -2,7 +2,7 @@
     Inherits="MenusController" Title="Usuarios" %>
 
     <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-        <link rel="stylesheet" type="text/css" href="css/styles.css" />
+        <link rel="stylesheet" type="text/css" href="css/styles.css" />        
     </asp:Content>
 
     <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">
@@ -12,49 +12,60 @@
             </div>
 
             <div class="tableUser">
-                <div class="searchUser">
-                    <label for="txtSearchUser">Buscar usuario:</label>
-                    <asp:TextBox runat="server" ID="txtSearchUser" CssClass="styled-textbox"></asp:TextBox>
+                <div class="searchProd">
+                    <label for="txtSearchProd">Buscar productos:</label>
+                    <asp:TextBox runat="server" ID="txtSearch" CssClass="styled-textbox"></asp:TextBox>
                     <asp:Button runat="server" ID="btnFindUser" Text="Buscar" OnClick="btnFindUser_Click"
-                        CssClass="btnBuscar" />
+                        CssClass="btnBuscar" />                    
+                    <div class="addMenu">
+                        <a href="#openModalAdd" class="enlacesUsuarios">Agregar usuario</a>
+                    </div>                    
+                </div>    
+                
+                <div class="inputs">
+                    <asp:TextBox runat="server" ID="txtNombre" placeholder="Ingrese el nombre"
+                        CssClass="styled-textbox"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txtUsuario" placeholder="Ingrese el usuario"
+                        CssClass="styled-textbox"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txtPassword" TextMode="Password"
+                        placeholder="Ingrese el password" CssClass="styled-textbox"></asp:TextBox>
+                    <label for="ddlCategoria">Rol:</label>
+                    <asp:DropDownList runat="server" ID="ddlCategoria" CssClass="styled-dropdown">
+                        <asp:ListItem Text="-" Value="Default" />
+                        <asp:ListItem Text="Administrador" Value="Administrador" />
+                        <asp:ListItem Text="Mesero" Value="Mesero" />
+                    </asp:DropDownList>
                 </div>
 
-                <table>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Usuario</th>
-                        <th>Tipo de usuario</th>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </table>
-            </div>
+                <div class="buttons">
+                    <asp:Button runat="server" ID="btnUpdate" Text="Actualizar usuario" 
+                    OnClick="btnActualizarUser_Click" CssClass="styled-button" />
+                    <asp:Button runat="server" ID="btnDelete" Text="Eliminar usuario" 
+                    OnClick="btnEliminarUser_Click" CssClass="styled-button" />
+                    <asp:Button runat="server" ID="btnLimpiar" Text="Limpiar campos" 
+                    OnClick="btnLimpiar_Click" CssClass="styled-button" />
+                </div>
+               
+                <asp:GridView ID="GridViewUsuarios" runat="server" AutoGenerateColumns="False" CssClass="styled-grid"
+                 OnRowCommand="GridViewUsuarios_RowCommand">
+                <Columns>
+                    <asp:BoundField DataField="Usuarios" HeaderText="Usuarios" SortExpression="Usuarios" />
+                    <asp:BoundField DataField="Nombre" HeaderText="Nombre" SortExpression="Nombre" />                    
+                    <asp:BoundField DataField="Rol" HeaderText="Rol" SortExpression="Rol" />               
+                    <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="Elegir" ShowHeader="True" Text="Elegir"/>
+                </Columns>
+				</asp:GridView>               
+            </div>           
 
             <!-- ENLACES PARA ABRIR LOS MODALES CORRESPONDIENTES A LAS OPERACIONES-->
             <div class="links">
                 <div class="modal-body">
-                    <a href="#openModalAdd" class="enlacesUsuarios">Agregar usuario</a>
                     <div id="openModalAdd" class="modalDialog">
                         <div>
                             <a href="#close" title="Close" class="close">X</a>
                             <h2>Registrar usuario</h2>
                             <div class="inputs">
                                 <asp:TextBox runat="server" ID="txtNombreAlta" placeholder="Ingrese el nombre"
-                                    CssClass="styled-textbox"></asp:TextBox>
-                                <asp:TextBox runat="server" ID="txtApellidoAlta" placeholder="Ingrese el apellido"
                                     CssClass="styled-textbox"></asp:TextBox>
                                 <asp:TextBox runat="server" ID="txtUsuarioAlta" placeholder="Ingrese el usuario"
                                     CssClass="styled-textbox"></asp:TextBox>
@@ -69,56 +80,6 @@
                             </div>
                             <asp:Button runat="server" ID="btnAgregarMenu" Text="Agregar usuario"
                                 OnClick="btnAgregarUser_Click" CssClass="styled-button" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-body">
-                    <a href="#openModalMod" class="enlacesUsuarios">Modificar usuario</a>
-                    <div id="openModalMod" class="modalDialog">
-                        <div>
-                            <a href="#close" title="Close" class="close">X</a>
-                            <h2>Modificar usuario</h2>
-                            <div class="inputs">
-
-                                <asp:TextBox runat="server" ID="txtNombreMod" placeholder="Ingrese el nombre"
-                                    CssClass="styled-textbox"></asp:TextBox>
-
-                                <asp:TextBox runat="server" ID="txtApellidoMod" placeholder="Ingrese el apellido"
-                                    CssClass="styled-textbox"></asp:TextBox>
-
-                                <asp:TextBox runat="server" ID="txtUsuarioMod" placeholder="Ingrese el usuario"
-                                    CssClass="styled-textbox"></asp:TextBox>
-
-                                <asp:TextBox runat="server" ID="txtPasswordMod" TextMode="Password"
-                                    placeholder="Ingrese el password" CssClass="styled-textbox"></asp:TextBox>
-                                <label for="ddlCategoria">Tipo de usuario:</label>
-                                <asp:DropDownList runat="server" ID="ddlCategoria" CssClass="styled-dropdown">
-                                    <asp:ListItem Text="-" Value="Default" />
-                                    <asp:ListItem Text="Administrador" Value="Administrador" />
-                                    <asp:ListItem Text="Mesero" Value="Mesero" />
-                                </asp:DropDownList>
-                            </div>
-                            <asp:Button runat="server" ID="btnActualizarMenu" Text="Actualizar usuario"
-                                OnClick="btnActualizarUser_Click" CssClass="styled-button" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-body">
-                    <a href="#openModalDel" class="enlacesUsuarios">Eliminar usuario</a>
-                    <div id="openModalDel" class="modalDialog">
-                        <div>
-                            <a href="#close" title="Close" class="close">X</a>
-                            <h2>Eliminar usuario</h2>
-                            <div class="inputs">
-                                <asp:TextBox runat="server" ID="txtNombreDel" placeholder="Ingrese el nombre"
-                                    CssClass="styled-textbox"></asp:TextBox>
-                                <asp:TextBox runat="server" ID="txtUsuarioDel" placeholder="Ingrese el usuario"
-                                    CssClass="styled-textbox"></asp:TextBox>
-                            </div>
-                            <asp:Button runat="server" ID="btnEliminarMenu" Text="Eliminar usuario"
-                                OnClick="btnEliminarUser_Click" CssClass="styled-button" />
                         </div>
                     </div>
                 </div>

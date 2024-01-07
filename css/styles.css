@@ -774,3 +774,91 @@ form .usuario {
     border-radius: 5px;
     border-color: #0C7ECF;
 }
+
+/* - - - - - - - USUARIOS - - - - - - - */
+
+.tableUser .searchProd {
+    margin: 30px 0 15px 200px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.tableUser .searchProd input{
+    border-radius: 5px;
+    border: 1px solid #0C7ECF;
+    padding: 5px;
+}
+
+.tableUser .searchProd input[type="submit"] {
+    width: 10%;
+    height: 35px;
+    border: 1px solid;
+    background: #0C7ECF;
+    border-radius: 25px;
+    color: #FFF;
+    cursor: pointer;
+    outline: none;
+    margin: 30px 0;
+}
+
+.tableUser .searchProd [type="submit"]:hover {
+    background-color: #00B9F2;
+    transition: .5s;
+}
+
+.tableUser .searchProd label,
+.tableUser .searchProd input,
+.tableUser .searchProd button {
+    margin-right: 10px; /* Ajusta el valor según tu preferencia para el espacio entre elementos */
+    flex-direction: row;
+}
+
+.tableUser .inputs {
+    margin: 0px 10px 30px 210px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.tableUser .inputs input{
+    border-radius: 5px;
+    border: 1px solid #0C7ECF;
+    padding: 5px;
+    margin-right: 30px;
+}
+
+.tableUser table td input{
+    border-radius: 5px;
+    border: 1px solid #0C7ECF;
+    padding: 5px;
+    width: 100%;
+}
+
+.tableUser table td input:hover {
+    background-color: #00B9F2;
+    transition: .5s;
+}
+
+
+.tableUser .searchProd .styled-textbox{
+    width: 20%;
+}
+
+.tableUser .inputs .styled-textbox{
+    width: 18%;
+}
+
+.tableUser .inputs label{
+    margin-right: 10px;
+}
+
+.tableUser .inputs .styled-dropdown{
+    display: block;
+    align-items: center;
+    padding: 5px;
+    width: 8.5%;
+    border-radius: 5px;
+    border: 1px solid #0C7ECF;
+}
+
