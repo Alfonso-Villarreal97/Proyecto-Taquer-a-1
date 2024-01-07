@@ -485,10 +485,20 @@ form .usuario {
 }
 
 .tableMenus .searchProd {
-    margin: 30px 0 15px 200px;
+    margin: 30px 0 15px 210px;
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.tableMenus .searchProd .ddlFiltrado{
+    margin-right: 15px;
+    display: block;
+    align-items: center;
+    padding: 5px;
+    width: 8.5%;
+    border-radius: 5px;
+    border: 1px solid #0C7ECF;
 }
 
 .tableMenus .searchProd input{
@@ -555,6 +565,7 @@ form .usuario {
     width: 8.5%;
     border-radius: 5px;
     border: 1px solid #0C7ECF;
+    margin-right: 15px;
 }
 
 .buttons{
