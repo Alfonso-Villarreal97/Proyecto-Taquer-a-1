@@ -1,14 +1,15 @@
 using System;
 using System.Web.UI;
+using System.Text;
 using System.Web.UI.WebControls;
 using System.Collections;
 using System.Data;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
+using System.Security.Cryptography;
 
 public class MenusController : Page
 {
-
     public TextBox txtNombreAlta;
     public TextBox txtUsuarioAlta;
     public TextBox txtPasswordAlta;
@@ -17,18 +18,20 @@ public class MenusController : Page
     public TextBox txtUsuario;
     public TextBox txtPassword;
     public DropDownList ddlCategoria;
+    public DropDownList ddlCategorias;
     public GridView GridViewUsuarios;
-    
+
     // Conexión P/Hugo
     // string connectionString = "Server=localhost;Database=bdtaque;Uid=root;Pwd=toor;SSLMode=preferred";
     //Conexión P/Diego
     string connectionString = "Server=localhost;Database=bdtaque;Uid=root;Pwd=;SSLMode=preferred";
-
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-		    CargarDatosEnGridView();
+            CargarDatosEnGridView();
+            CargarCategoriasEnDropDownList();
+            BloquearTextFields();
         }
     }
     private void CargarDatosEnGridView()
@@ -49,6 +52,17 @@ public class MenusController : Page
             }
         }
     }
+
+    private void CargarCategoriasEnDropDownList()
+    {
+        // Limpiamos cualquier elemento previo en el DropDownList
+        ddlCategorias.Items.Clear();
+        // Agregamos un ítem por defecto
+        ddlCategorias.Items.Add(new ListItem("- All -", ""));
+        // Añadimos las categorías directamente
+        ddlCategorias.Items.Add(new ListItem("Administrador", "Administrador"));
+        ddlCategorias.Items.Add(new ListItem("Mesero", "Mesero"));
+    }
     protected void btnAgregarUser_Click(object sender, EventArgs e)
     {
         try
@@ -58,122 +72,158 @@ public class MenusController : Page
             string password = txtPasswordAlta.Text;
             string categoria = ddlCategoriaAlta.SelectedValue;
 
-            // Crear la conexión
-            using (MySqlConnection con = new MySqlConnection(connectionString))
+            string hashedPassword = GetMd5Hash(password);
+
+            if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(nombre) || string.IsNullOrEmpty(categoria))
             {
-                con.Open();
-
-                // Crear el comando SQL para la inserción
-                string query = "INSERT INTO usuarios (Usuarios, Password, Nombre, Rol) VALUES (@Usuarios, @Password, @Nombre, @Rol)";
-                using (MySqlCommand cmd = new MySqlCommand(query, con))
+                // User tiene contenido? = No
+                ScriptManager.RegisterStartupScript(this, GetType(), "alertaNullFields", "alertaNullFields();", true);
+            }
+            else
+            {
+                // Crear la conexión
+                using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
-                    // Parametrizar los valores
-                    cmd.Parameters.AddWithValue("@Usuarios", usuario);
-                    cmd.Parameters.AddWithValue("@Password", password);
-                    cmd.Parameters.AddWithValue("@Nombre", nombre);
-                    cmd.Parameters.AddWithValue("@Rol", categoria);
-
-                    // Ejecutar la consulta
-                    cmd.ExecuteNonQuery();
-                    
-                    // Cargar datos en GridView después de la inserción
-					CargarDatosEnGridView();
+                    con.Open();
+                    // Crear el comando SQL para la inserción
+                    string query = "INSERT INTO usuarios (Usuarios, Password, Nombre, Rol) VALUES (@Usuarios, @Password, @Nombre, @Rol)";
+                    using (MySqlCommand cmd = new MySqlCommand(query, con))
+                    {
+                        // Parametrizar los valores
+                        cmd.Parameters.AddWithValue("@Usuarios", usuario);
+                        cmd.Parameters.AddWithValue("@Password", hashedPassword);
+                        cmd.Parameters.AddWithValue("@Nombre", nombre);
+                        cmd.Parameters.AddWithValue("@Rol", categoria);
+                        // Ejecutar la consulta
+                        cmd.ExecuteNonQuery();
+                        // Cargar datos en GridView después de la inserción
+                        CargarDatosEnGridView();
+                    }
                 }
             }
-
-            // Puedes realizar acciones adicionales después de la inserción si es necesario.
-
-            LimpiarCamposAlta(); // Método para limpiar los campos después de la inserción.
+            LimpiarCamposAlta();
         }
         catch (Exception ex)
         {
-            // Manejar errores
-            // Puedes mostrar un mensaje de error o realizar acciones adicionales según sea necesario.
+            ScriptManager.RegisterStartupScript(this, GetType(), "alertaAltaFalse", "alertaAltaFalse();", true);
         }
     }
-
     protected void btnActualizarUser_Click(object sender, EventArgs e)
-{
-    try
     {
-        string nombre = txtNombre.Text;
-        string usuario = txtUsuario.Text;
-        string password = txtPassword.Text;
-        string categoria = ddlCategoria.SelectedValue;
-
-        // Crear la conexión
-        using (MySqlConnection con = new MySqlConnection(connectionString))
+        try
         {
-            con.Open();
+            string nombre = txtNombre.Text;
+            string usuario = txtUsuario.Text;
+            string password = txtPassword.Text;
+            string categoria = ddlCategoria.SelectedValue;
 
-            // Crear el comando SQL para la actualización
-            string query = "UPDATE Usuarios SET Usuarios = @NuevoUsuario, Password = @Password, Rol = @Rol WHERE Usuarios = @UsuarioExistente";
-            using (MySqlCommand cmd = new MySqlCommand(query, con))
+            if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(nombre) || string.IsNullOrEmpty(categoria))
             {
-                // Parametrizar los valores
-                cmd.Parameters.AddWithValue("@NuevoUsuario", usuario);
-                cmd.Parameters.AddWithValue("@Password", password);
-                cmd.Parameters.AddWithValue("@Rol", categoria);
-                cmd.Parameters.AddWithValue("@UsuarioExistente", usuario);
-
-                // Ejecutar la consulta
-                cmd.ExecuteNonQuery();
-                
-                // Cargar datos en GridView después de la actualización
-                CargarDatosEnGridView();
-            }
+                // User tiene contenido? = No
+                ScriptManager.RegisterStartupScript(this, GetType(), "alertaNull", "alertaNull();", true);
+                ScriptManager.RegisterStartupScript(this, GetType(), "alertaNullFields", "alertaNullFields();", true);
+            } else{
+                // Crear la conexión
+                using (MySqlConnection con = new MySqlConnection(connectionString))
+                {
+                    con.Open();
+                    // Crear el comando SQL para la actualización
+                    string query = "UPDATE Usuarios SET Usuarios = @NuevoUsuario, Password = @Password, Rol = @Rol WHERE Usuarios = @UsuarioExistente";
+                    using (MySqlCommand cmd = new MySqlCommand(query, con))
+                    {
+                        // Parametrizar los valores
+                        cmd.Parameters.AddWithValue("@NuevoUsuario", usuario);
+                        cmd.Parameters.AddWithValue("@Password", password);
+                        cmd.Parameters.AddWithValue("@Rol", categoria);
+                        cmd.Parameters.AddWithValue("@UsuarioExistente", usuario);
+                        // Ejecutar la consulta
+                        cmd.ExecuteNonQuery();
+                        // Cargar datos en GridView después de la actualización
+                        CargarDatosEnGridView();
+                    }
+                }
+            }           
+            LimpiarCampos();
         }
-        // Puedes realizar acciones adicionales después de la actualización si es necesario.
-        LimpiarCampos();
+        catch (Exception ex)
+        {
+           ScriptManager.RegisterStartupScript(this, GetType(), "alertaModFalse", "alertaModFalse();", true);
+        }
     }
-    catch (Exception ex)
-    {
-        // Manejar errores
-        // Puedes mostrar un mensaje de error o realizar acciones adicionales según sea necesario.
-    }
-}
-
-
     protected void btnEliminarUser_Click(object sender, EventArgs e)
     {
-         try
+        string usuario = txtUsuario.Text;
+        try
         {
-            string usuario = txtUsuario.Text;
-
-            // Elimina el producto de la base de datos
-            using (MySqlConnection con = new MySqlConnection(connectionString))
-            {
-                con.Open();
-
-                string query = "DELETE FROM Usuarios WHERE Usuarios = @Usuarios";
-                using (MySqlCommand cmd = new MySqlCommand(query, con))
+            if(string.IsNullOrEmpty(usuario)){
+                ScriptManager.RegisterStartupScript(this, GetType(), "alertaNull", "alertaNull();", true); 
+            }else{
+                // Elimina el usuario de la base de datos
+                using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
-                    cmd.Parameters.AddWithValue("@Usuarios", usuario);
-                    cmd.ExecuteNonQuery();
+                    con.Open();
+
+                    string query = "DELETE FROM Usuarios WHERE Usuarios = @Usuarios";
+                    using (MySqlCommand cmd = new MySqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@Usuarios", usuario);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
             }
-
-            // Vuelve a cargar los datos en el GridView después de la eliminación
             CargarDatosEnGridView();
         }
         catch (Exception ex)
         {
-            // Manejar errores
-            // Puedes mostrar un mensaje de error o realizar acciones adicionales según sea necesario.
+            ScriptManager.RegisterStartupScript(this, GetType(), "alertaDelFalse", "alertaDelFalse();", true);
         }
         LimpiarCampos();
     }
 
-    protected void btnFindUser_Click(object sender, EventArgs e)
-    {
-        
-    }
 
+    protected void btnFindUser_click(object sender, EventArgs e)
+    {
+        try
+        {
+            string categoriaBuscar = ddlCategorias.SelectedValue;
+
+            if (!string.IsNullOrEmpty(categoriaBuscar) && categoriaBuscar != "- Seleccionar -")
+            {
+                using (MySqlConnection con = new MySqlConnection(connectionString))
+                {
+                    con.Open();
+
+                    string query = "SELECT id, Usuarios, Password, Nombre, Rol FROM usuarios WHERE Rol = @Rol";
+                    using (MySqlCommand cmd = new MySqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@Rol", categoriaBuscar);
+
+                        DataTable dt = new DataTable();
+                        using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        GridViewUsuarios.DataSource = dt;
+                        GridViewUsuarios.DataBind();
+                    }
+                }
+            }
+            else
+            {
+                CargarDatosEnGridView();
+            }
+        }
+        catch (Exception ex)
+        {
+           //Manejo de excepcion
+        }
+    }
     protected void btnLimpiar_Click(object sender, EventArgs e)
     {
         LimpiarCampos();
+        BloquearTextFields();
     }
-     private void LimpiarCampos()
+    private void LimpiarCampos()
     {
         txtNombre.Text = string.Empty;
         txtUsuario.Text = string.Empty;
@@ -182,30 +232,57 @@ public class MenusController : Page
     }
     private void LimpiarCamposAlta()
     {
-        // Método para limpiar los campos después de la inserción
         txtNombreAlta.Text = string.Empty;
         txtUsuarioAlta.Text = string.Empty;
         txtPasswordAlta.Text = string.Empty;
         ddlCategoriaAlta.SelectedIndex = 0;
     }
-
-    protected void GridViewUsuarios_RowCommand(object sender, GridViewCommandEventArgs e)
-{
-    if (e.CommandName == "Select")
+    private void BloquearTextFields()
     {
-        int rowIndex = Convert.ToInt32(e.CommandArgument);
-
-        // Asegurarse de que haya al menos una fila y la fila seleccionada sea válida
-        if (GridViewUsuarios.Rows.Count > 0 && rowIndex >= 0 && rowIndex < GridViewUsuarios.Rows.Count)
+        txtNombre.Enabled = false;
+        txtUsuario.Enabled = false;
+        txtPassword.Enabled = false;
+        ddlCategoria.Enabled = false;
+    }
+    private void DesbloquearTextFields()
+    {
+        txtNombre.Enabled = true;
+        txtUsuario.Enabled = true;
+        txtPassword.Enabled = true;
+        ddlCategoria.Enabled = true;
+    }
+    protected void GridViewUsuarios_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        if (e.CommandName == "Select")
         {
-            // Obtener los valores de la fila seleccionada
-            txtUsuario.Text = GridViewUsuarios.Rows[rowIndex].Cells[0].Text;  // Usuario
-            txtUsuario.Enabled = false;
-            txtNombre.Text = GridViewUsuarios.Rows[rowIndex].Cells[1].Text;  // Nombre 
-            txtNombre.Enabled = false;           
-            ddlCategoria.SelectedValue = GridViewUsuarios.Rows[rowIndex].Cells[2].Text;  // Rol
+            DesbloquearTextFields();
+            int rowIndex = Convert.ToInt32(e.CommandArgument);
+            // Aseguramos de que haya al menos una fila y la fila seleccionada sea válida
+            if (GridViewUsuarios.Rows.Count > 0 && rowIndex >= 0 && rowIndex < GridViewUsuarios.Rows.Count)
+            {
+                // Obtenemos los valores de la fila seleccionada
+                txtUsuario.Text = GridViewUsuarios.Rows[rowIndex].Cells[0].Text;  // Usuario
+                txtUsuario.Enabled = false;
+                txtNombre.Text = GridViewUsuarios.Rows[rowIndex].Cells[1].Text;  // Nombre 
+                txtNombre.Enabled = false;
+                ddlCategoria.SelectedValue = GridViewUsuarios.Rows[rowIndex].Cells[2].Text;  // Rol
+            }
+        }
+    }    
+    public string GetMd5Hash(string input)
+    {
+        using (MD5 md5Hash = MD5.Create())
+        {
+            byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+            StringBuilder builder = new StringBuilder();
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                builder.Append(data[i].ToString("x2"));
+            }
+
+            return builder.ToString();
         }
     }
-}
-
 }

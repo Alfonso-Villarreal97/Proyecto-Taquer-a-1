@@ -24,6 +24,7 @@ ALTER TABLE productos DROP COLUMN Nombre;
 ALTER TABLE Productos AUTO_INCREMENT = 0;
 ALTER TABLE Usuarios AUTO_INCREMENT = 0;
 
+UPDATE usuarios SET Rol = 'Administrador' WHERE Usuarios = 'Usuario2';
 -- INSERCIONES DE DATOS DUMMY
 INSERT INTO Usuarios (Usuarios, Password, Nombre,  Rol) VALUES
 ('Usuario1', 'Contraseña1', 'Dummy1', 'Administrador'),

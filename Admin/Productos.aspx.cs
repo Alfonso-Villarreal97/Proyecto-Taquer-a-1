@@ -22,7 +22,6 @@ public class MenusController : Page
     // string connectionString = "Server=localhost;Database=bdtaque;Uid=root;Pwd=toor;SSLMode=preferred";
     //Conexión P/Diego
     string connectionString = "Server=localhost;Database=bdtaque;Uid=root;Pwd=;SSLMode=preferred";
-
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -55,11 +54,9 @@ public class MenusController : Page
     private void CargarCategoriasEnDropDownList()
 	{
 		// Limpiar cualquier elemento previo en el DropDownList
-		ddlCategorias.Items.Clear();
-		
+		ddlCategorias.Items.Clear();		
 		// Agregar un ítem por defecto
 		ddlCategorias.Items.Add(new ListItem("- All -", ""));
-
 		// Añadir las categorías directamente
 		ddlCategorias.Items.Add(new ListItem("Tacos", "Tacos"));
 		ddlCategorias.Items.Add(new ListItem("Tortas", "Tortas"));
@@ -86,30 +83,34 @@ public class MenusController : Page
             string descripcion = txtDescProdAlta.Text;
             decimal precio = Convert.ToDecimal(txtPrecioProdAlta.Text);
             string categoria = ddlCategoriaProdAlta.SelectedValue;
+            string sPrecio = precio.ToString();
 
-            using (MySqlConnection con = new MySqlConnection(connectionString))
-            {
-                con.Open();
-
-                string query = "INSERT INTO Productos (Descripcion, Precio, Categoria) VALUES (@Descripcion, @Precio, @Categoria)";
-                using (MySqlCommand cmd = new MySqlCommand(query, con))
+            if(string.IsNullOrEmpty(descripcion) || string.IsNullOrEmpty(sPrecio) || string.IsNullOrEmpty(categoria)){
+                // Los campos tienen contenido? = No
+                ScriptManager.RegisterStartupScript(this, GetType(), "alertaNullFields", "alertaNullFields();", true);
+            } else {
+                using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
-                    cmd.Parameters.AddWithValue("@Descripcion", descripcion);
-                    cmd.Parameters.AddWithValue("@Precio", precio);
-                    cmd.Parameters.AddWithValue("@Categoria", categoria);
+                    con.Open();
 
-                    cmd.ExecuteNonQuery();
+                    string query = "INSERT INTO Productos (Descripcion, Precio, Categoria) VALUES (@Descripcion, @Precio, @Categoria)";
+                    using (MySqlCommand cmd = new MySqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@Descripcion", descripcion);
+                        cmd.Parameters.AddWithValue("@Precio", precio);
+                        cmd.Parameters.AddWithValue("@Categoria", categoria);
 
-                    CargarDatosEnGridView();
+                        cmd.ExecuteNonQuery();
+
+                        CargarDatosEnGridView();
+                    }
                 }
             }
-
             LimpiarCamposAlta();
         }
         catch (Exception ex)
         {
-            // Manejar errores
-            // Puedes mostrar un mensaje de error o realizar acciones adicionales según sea necesario.
+           ScriptManager.RegisterStartupScript(this, GetType(), "alertaNullFields", "alertaNullFields();", true);
         }
     }
 
@@ -134,28 +135,32 @@ public class MenusController : Page
             string categoria = ddlCategoria.SelectedValue;
             string descripcion = txtDesc.Text;
             decimal precio = Convert.ToDecimal(txtPrecio.Text);
+            string sPrecio = precio.ToString();
 
-            using (MySqlConnection con = new MySqlConnection(connectionString))
-            {
-                con.Open();
-
-                string query = "UPDATE Productos SET Categoria = @Categoria, Descripcion = @Descripcion, Precio = @Precio  WHERE Categoria = @Categoria";
-                using (MySqlCommand cmd = new MySqlCommand(query, con))
+             if(string.IsNullOrEmpty(descripcion) || string.IsNullOrEmpty(sPrecio) || string.IsNullOrEmpty(categoria)){
+                // Los campos tienen contenido? = No
+                ScriptManager.RegisterStartupScript(this, GetType(), "alertaNullFields", "alertaNullFields();", true);
+            } else {
+                using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
-                    cmd.Parameters.AddWithValue("@Categoria", categoria);
-                    cmd.Parameters.AddWithValue("@Descripcion", descripcion);
-                    cmd.Parameters.AddWithValue("@Precio", precio);
-                    cmd.ExecuteNonQuery();
+                    con.Open();
+
+                    string query = "UPDATE Productos SET Categoria = @Categoria, Descripcion = @Descripcion, Precio = @Precio  WHERE Categoria = @Categoria";
+                    using (MySqlCommand cmd = new MySqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@Categoria", categoria);
+                        cmd.Parameters.AddWithValue("@Descripcion", descripcion);
+                        cmd.Parameters.AddWithValue("@Precio", precio);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
             }
-
             CargarDatosEnGridView();
             LimpiarCampos();
         }
         catch (Exception ex)
         {
-            // Manejar errores
-            // Puedes mostrar un mensaje de error o realizar acciones adicionales según sea necesario.
+            ScriptManager.RegisterStartupScript(this, GetType(), "alertaNullFields", "alertaNullFields();", true);
         }
     }
 
@@ -165,7 +170,10 @@ public class MenusController : Page
         {
             string descripcion = txtDesc.Text;
 
-            using (MySqlConnection con = new MySqlConnection(connectionString))
+            if(string.IsNullOrEmpty(descripcion)){
+                 ScriptManager.RegisterStartupScript(this, GetType(), "alertaNull", "alertaNull();", true); 
+            } else {
+                 using (MySqlConnection con = new MySqlConnection(connectionString))
             {
                 con.Open();
 
@@ -176,20 +184,14 @@ public class MenusController : Page
                     cmd.ExecuteNonQuery();
                 }
             }
-
+            }           
             CargarDatosEnGridView();
-
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "CloseModal", "closeModal('openModalMod');", true);
-        
-			// Limpia los campos después de eliminar
 			LimpiarCampos();
-            BloquearTextFields();
-        
+            BloquearTextFields();        
         }
         catch (Exception ex)
         {
-            // Manejar errores
-            // Puedes mostrar un mensaje de error o realizar acciones adicionales según sea necesario.
+            ScriptManager.RegisterStartupScript(this, GetType(), "alertaDelFalse", "alertaDelFalse();", true);
         }
     }
 
@@ -228,8 +230,7 @@ public class MenusController : Page
         }
         catch (Exception ex)
         {
-            // Manejar errores
-            // Puedes mostrar un mensaje de error o realizar acciones adicionales según sea necesario.
+           //Manejo de excepcion
         }
     }
 
