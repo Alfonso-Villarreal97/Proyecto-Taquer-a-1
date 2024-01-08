@@ -8,35 +8,27 @@ using MySql.Data.MySqlClient;
 
 public class MenusController : Page
 {
-    public TextBox txtNombreProdAlta;
-    public TextBox txtNombreProdMod;
     public TextBox txtDescProdAlta;
-    public TextBox txtDescProdMod;
     public TextBox txtPrecioProdAlta;
-    public TextBox txtPrecioMod;
-    public TextBox txtSearchProd;
     public DropDownList ddlCategoriaProdAlta;
-    public DropDownList ddlCategoriaMod;
     public GridView GridViewProductos;
-    public TextBox txtNombre;
     public TextBox txtDesc;
     public TextBox txtPrecio;
     public DropDownList ddlCategoria;
     public DropDownList ddlCategorias;
-
     private string selectedCategoria;
 
     // Conexión P/Hugo
     // string connectionString = "Server=localhost;Database=bdtaque;Uid=root;Pwd=toor;SSLMode=preferred";
     //Conexión P/Diego
-    string connectionString = "Server=localhost;Database=bdtaque;Uid=root;Pwd=toor;SSLMode=preferred";
-
+    string connectionString = "Server=localhost;Database=bdtaque;Uid=root;Pwd=;SSLMode=preferred";
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
             CargarDatosEnGridView();
             CargarCategoriasEnDropDownList();
+            BloquearTextFields();
         }
     }
 
@@ -62,11 +54,9 @@ public class MenusController : Page
     private void CargarCategoriasEnDropDownList()
 	{
 		// Limpiar cualquier elemento previo en el DropDownList
-		ddlCategorias.Items.Clear();
-		
+		ddlCategorias.Items.Clear();		
 		// Agregar un ítem por defecto
-		ddlCategorias.Items.Add(new ListItem("- TODOS -", ""));
-
+		ddlCategorias.Items.Add(new ListItem("- All -", ""));
 		// Añadir las categorías directamente
 		ddlCategorias.Items.Add(new ListItem("Tacos", "Tacos"));
 		ddlCategorias.Items.Add(new ListItem("Tortas", "Tortas"));
@@ -74,6 +64,17 @@ public class MenusController : Page
 		ddlCategorias.Items.Add(new ListItem("Bebidas", "Bebidas"));
 	}
 
+    private void BloquearTextFields(){
+        ddlCategoria.Enabled = false;
+        txtDesc.Enabled = false;
+        txtPrecio.Enabled = false;
+    }
+
+    private void DesbloquearTextFields(){
+        ddlCategoria.Enabled = true;
+        txtDesc.Enabled = true;
+        txtPrecio.Enabled = true;
+    }
 
     protected void btnAgregarMenu_Click(object sender, EventArgs e)
     {
@@ -82,30 +83,34 @@ public class MenusController : Page
             string descripcion = txtDescProdAlta.Text;
             decimal precio = Convert.ToDecimal(txtPrecioProdAlta.Text);
             string categoria = ddlCategoriaProdAlta.SelectedValue;
+            string sPrecio = precio.ToString();
 
-            using (MySqlConnection con = new MySqlConnection(connectionString))
-            {
-                con.Open();
-
-                string query = "INSERT INTO Productos (Descripcion, Precio, Categoria) VALUES (@Descripcion, @Precio, @Categoria)";
-                using (MySqlCommand cmd = new MySqlCommand(query, con))
+            if(string.IsNullOrEmpty(descripcion) || string.IsNullOrEmpty(sPrecio) || string.IsNullOrEmpty(categoria)){
+                // Los campos tienen contenido? = No
+                ScriptManager.RegisterStartupScript(this, GetType(), "alertaNullFields", "alertaNullFields();", true);
+            } else {
+                using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
-                    cmd.Parameters.AddWithValue("@Descripcion", descripcion);
-                    cmd.Parameters.AddWithValue("@Precio", precio);
-                    cmd.Parameters.AddWithValue("@Categoria", categoria);
+                    con.Open();
 
-                    cmd.ExecuteNonQuery();
+                    string query = "INSERT INTO Productos (Descripcion, Precio, Categoria) VALUES (@Descripcion, @Precio, @Categoria)";
+                    using (MySqlCommand cmd = new MySqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@Descripcion", descripcion);
+                        cmd.Parameters.AddWithValue("@Precio", precio);
+                        cmd.Parameters.AddWithValue("@Categoria", categoria);
 
-                    CargarDatosEnGridView();
+                        cmd.ExecuteNonQuery();
+
+                        CargarDatosEnGridView();
+                    }
                 }
             }
-
             LimpiarCamposAlta();
         }
         catch (Exception ex)
         {
-            // Manejar errores
-            // Puedes mostrar un mensaje de error o realizar acciones adicionales según sea necesario.
+           ScriptManager.RegisterStartupScript(this, GetType(), "alertaNullFields", "alertaNullFields();", true);
         }
     }
 
@@ -130,28 +135,32 @@ public class MenusController : Page
             string categoria = ddlCategoria.SelectedValue;
             string descripcion = txtDesc.Text;
             decimal precio = Convert.ToDecimal(txtPrecio.Text);
+            string sPrecio = precio.ToString();
 
-            using (MySqlConnection con = new MySqlConnection(connectionString))
-            {
-                con.Open();
-
-                string query = "UPDATE Productos SET Categoria = @Categoria, Descripcion = @Descripcion, Precio = @Precio  WHERE Categoria = @Categoria";
-                using (MySqlCommand cmd = new MySqlCommand(query, con))
+             if(string.IsNullOrEmpty(descripcion) || string.IsNullOrEmpty(sPrecio) || string.IsNullOrEmpty(categoria)){
+                // Los campos tienen contenido? = No
+                ScriptManager.RegisterStartupScript(this, GetType(), "alertaNullFields", "alertaNullFields();", true);
+            } else {
+                using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
-                    cmd.Parameters.AddWithValue("@Categoria", categoria);
-                    cmd.Parameters.AddWithValue("@Descripcion", descripcion);
-                    cmd.Parameters.AddWithValue("@Precio", precio);
-                    cmd.ExecuteNonQuery();
+                    con.Open();
+
+                    string query = "UPDATE Productos SET Categoria = @Categoria, Descripcion = @Descripcion, Precio = @Precio  WHERE Categoria = @Categoria";
+                    using (MySqlCommand cmd = new MySqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@Categoria", categoria);
+                        cmd.Parameters.AddWithValue("@Descripcion", descripcion);
+                        cmd.Parameters.AddWithValue("@Precio", precio);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
             }
-
             CargarDatosEnGridView();
             LimpiarCampos();
         }
         catch (Exception ex)
         {
-            // Manejar errores
-            // Puedes mostrar un mensaje de error o realizar acciones adicionales según sea necesario.
+            ScriptManager.RegisterStartupScript(this, GetType(), "alertaNullFields", "alertaNullFields();", true);
         }
     }
 
@@ -161,7 +170,10 @@ public class MenusController : Page
         {
             string descripcion = txtDesc.Text;
 
-            using (MySqlConnection con = new MySqlConnection(connectionString))
+            if(string.IsNullOrEmpty(descripcion)){
+                 ScriptManager.RegisterStartupScript(this, GetType(), "alertaNull", "alertaNull();", true); 
+            } else {
+                 using (MySqlConnection con = new MySqlConnection(connectionString))
             {
                 con.Open();
 
@@ -172,19 +184,14 @@ public class MenusController : Page
                     cmd.ExecuteNonQuery();
                 }
             }
-
+            }           
             CargarDatosEnGridView();
-
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "CloseModal", "closeModal('openModalMod');", true);
-        
-			// Limpia los campos después de eliminar
 			LimpiarCampos();
-        
+            BloquearTextFields();        
         }
         catch (Exception ex)
         {
-            // Manejar errores
-            // Puedes mostrar un mensaje de error o realizar acciones adicionales según sea necesario.
+            ScriptManager.RegisterStartupScript(this, GetType(), "alertaDelFalse", "alertaDelFalse();", true);
         }
     }
 
@@ -223,20 +230,21 @@ public class MenusController : Page
         }
         catch (Exception ex)
         {
-            // Manejar errores
-            // Puedes mostrar un mensaje de error o realizar acciones adicionales según sea necesario.
+           //Manejo de excepcion
         }
     }
 
     protected void btnLimpiarMenu_Click(object sender, EventArgs e)
     {
         LimpiarCampos();
+        BloquearTextFields();
     }
 
     protected void GridViewProductos_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         if (e.CommandName == "Select")
         {
+            DesbloquearTextFields();
             int rowIndex = Convert.ToInt32(e.CommandArgument);
 
             if (GridViewProductos.Rows.Count > 0 && rowIndex >= 0 && rowIndex < GridViewProductos.Rows.Count)
@@ -245,7 +253,6 @@ public class MenusController : Page
                 ddlCategoria.Enabled = false;
                 txtDesc.Text = GridViewProductos.Rows[rowIndex].Cells[1].Text;
                 txtPrecio.Text = GridViewProductos.Rows[rowIndex].Cells[2].Text;
-
                 selectedCategoria = GridViewProductos.Rows[rowIndex].Cells[0].Text;
             }
         }

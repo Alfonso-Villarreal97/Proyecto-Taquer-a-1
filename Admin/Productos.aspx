@@ -3,6 +3,30 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <script type="text/javascript">
+        //Alertas Productos
+        function alertaNull(){
+            alert("Primero haga click sobre el boton 'elegir' para seleccionar un registro");
+        }
+        function alertaNullFields(){
+            alert("No puede quedar ningun campo en blanco");
+        }
+        function alertaAltaFalse(){
+            alert("No puede quedar ningun input en blanco");
+        }
+        function alertaDelTrue() {
+            alert("Registro eliminado exitosamente");
+        }
+        function alertaDelFalse() {
+            alert("Error al eliminar el registro");
+        }           
+        function alertaModTrue() {
+            alert("Registro modificado exitosamente");
+        }
+        function alertaModFalse() {
+            alert("Error al modificar el registro");
+        }
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">
@@ -14,7 +38,7 @@
         <div class="tableMenus">
             <div class="searchProd">
                 <label for="txtSearchProd">Filtrar por:</label>
-                <asp:DropDownList runat="server" ID="ddlCategorias" CssClass="styled-dropdown" AutoPostBack="true">
+                <asp:DropDownList runat="server" ID="ddlCategorias" CssClass="ddlFiltrado" AutoPostBack="true">
                     <asp:ListItem Text="- Seleccionar -" Value="" />
                 </asp:DropDownList>
                 <asp:Button runat="server" ID="btnFindProd" Text="Buscar" OnClick="btnFindMenu_Click" CssClass="btnBuscar" />
@@ -34,12 +58,16 @@
                 </asp:DropDownList>
 
                 <label for="txtDesc">Descripcion: </label>
-                <asp:TextBox runat="server" ID="txtDesc" placeholder="descripcion"
+                <asp:TextBox runat="server" ID="txtDesc" placeholder="Breve descripcion"
                     CssClass="styled-textbox"></asp:TextBox>
-                
+
                 <label for="txtPrecio">Precio: </label>
-                <asp:TextBox runat="server" ID="txtPrecio" placeholder="precio"
+                <asp:TextBox runat="server" ID="txtPrecio" placeholder="Precio del alimentos"
                     CssClass="styled-textbox"></asp:TextBox>
+                <asp:RegularExpressionValidator runat="server" ID="regexValidatorPrecio"
+                    ControlToValidate="txtPrecio" ValidationExpression="^\d+(\.\d+)?$"
+                    ErrorMessage="Ingrese un valor numerico valido." Display="Dynamic" CssClass="validation-error-text">
+                </asp:RegularExpressionValidator>                
             </div>
 
             <div class="buttons">
