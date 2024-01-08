@@ -25,6 +25,7 @@ public class MenusController : Page
     // string connectionString = "Server=localhost;Database=bdtaque;Uid=root;Pwd=toor;SSLMode=preferred";
     //Conexión P/Diego
     string connectionString = "Server=localhost;Database=bdtaque;Uid=root;Pwd=;SSLMode=preferred";
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

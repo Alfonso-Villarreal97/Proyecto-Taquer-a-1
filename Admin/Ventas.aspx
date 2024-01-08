@@ -28,29 +28,23 @@
                         <label for="txtFechaAl">Al:</label>
                         <asp:TextBox ID="txtFechaAl" runat="server" type="date"></asp:TextBox>
                     </div>
+                    
+                    <asp:Button ID="btnBuscar" runat="server" Text="Buscar" OnClick="btnBuscar_Click" />
+
+                    
                 </div>
 
                 <div class="tableVentas">
-                    <table>
-                        <tr>
-                            <th>Numero de Orden</th>
-                            <th>Fecha</th>
-                            <th>Mesero</th>
-                            <th>Total</th>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </table>
+                    <asp:GridView ID="GridViewVentas" runat="server" AutoGenerateColumns="False" CssClass="gridview">
+                    <Columns>
+                        <asp:BoundField DataField="NumeroDeOrden" HeaderText="Numero de Orden" SortExpression="NumeroDeOrden" />
+                        <asp:BoundField DataField="Fecha" HeaderText="Fecha" SortExpression="Fecha" DataFormatString="{0:d}"/>
+                        <asp:BoundField DataField="Mesero" HeaderText="Mesero" SortExpression="Mesero" />
+                        <asp:BoundField DataField="Ganancia" HeaderText="Total" SortExpression="Ganancia" />
+                    </Columns>
+                    <HeaderStyle CssClass="gridview-header" />
+                    <RowStyle CssClass="gridview-row" />
+                </asp:GridView>
                 </div>
             </div>
         </div>
