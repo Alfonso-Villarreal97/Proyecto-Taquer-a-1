@@ -818,6 +818,16 @@ form .usuario {
     transition: .5s;
 }
 
+.tableUser .searchProd .ddlFiltrado{
+    margin-right: 15px;
+    display: block;
+    align-items: center;
+    padding: 5px;
+    width: 8.5%;
+    border-radius: 5px;
+    border: 1px solid #0C7ECF;
+}
+
 .tableUser .searchProd label,
 .tableUser .searchProd input,
 .tableUser .searchProd button {
@@ -868,7 +878,7 @@ form .usuario {
     display: block;
     align-items: center;
     padding: 5px;
-    width: 8.5%;
+    width: 15%;
     border-radius: 5px;
     border: 1px solid #0C7ECF;
 }

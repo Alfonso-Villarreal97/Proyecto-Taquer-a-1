@@ -3,6 +3,30 @@
 
     <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
         <link rel="stylesheet" type="text/css" href="css/styles.css" />        
+        <script type="text/javascript">
+            //Alertas Usuarios
+            function alertaNull(){
+                alert("Primero haga click sobre el boton 'elegir' para seleccionar un registro");
+            }
+            function alertaNullFields(){
+                alert("No puede quedar ningun campo en blanco");
+            }
+            function alertaAltaFalse(){
+                alert("No puede quedar ningun input en blanco");
+            }
+            function alertaDelTrue() {
+                alert("Registro eliminado exitosamente");
+            }
+            function alertaDelFalse() {
+                alert("Error al eliminar el registro");
+            }           
+            function alertaModTrue() {
+                alert("Registro modificado exitosamente");
+            }
+            function alertaModFalse() {
+                alert("Error al modificar el registro");
+            }
+        </script>
     </asp:Content>
 
     <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">
@@ -11,17 +35,18 @@
                 <h2>Gestionar Usuarios</h2>
             </div>
 
-            <div class="tableUser">
+            <div class="tableUser">      
                 <div class="searchProd">
-                    <label for="txtSearchProd">Buscar productos:</label>
-                    <asp:TextBox runat="server" ID="txtSearch" CssClass="styled-textbox"></asp:TextBox>
-                    <asp:Button runat="server" ID="btnFindUser" Text="Buscar" OnClick="btnFindUser_Click"
-                        CssClass="btnBuscar" />                    
+                    <label for="txtSearchProd">Filtrar por:</label>
+                    <asp:DropDownList runat="server" ID="ddlCategorias" CssClass="ddlFiltrado" AutoPostBack="true">
+                        <asp:ListItem Text="- Seleccionar -" Value="" />
+                    </asp:DropDownList>
+                    <asp:Button runat="server" ID="btnFindUser" Text="Buscar" OnClick="btnFindUser_click" CssClass="btnBuscar" />
                     <div class="addMenu">
                         <a href="#openModalAdd" class="enlacesUsuarios">Agregar usuario</a>
-                    </div>                    
-                </div>    
-                
+                    </div>
+                </div>
+
                 <div class="inputs">
                     <asp:TextBox runat="server" ID="txtNombre" placeholder="Ingrese el nombre"
                         CssClass="styled-textbox"></asp:TextBox>
