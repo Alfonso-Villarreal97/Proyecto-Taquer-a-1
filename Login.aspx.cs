@@ -81,7 +81,7 @@ public class Login : Page
                 // Guarda el ID del usuario en la sesión
                 Session["Id"] = reader.GetInt32(0);
                 // Guarda la información del usuario en la sesión
-                Session["userUsuario"] = reader.GetString(2);
+                Session["userUsuario"] = reader.GetString(1);
 
                 Response.Redirect("Admin/Inicio.aspx");
             }
@@ -92,7 +92,7 @@ public class Login : Page
                 // Guarda el ID del usuario en la sesión
                 Session["Id"] = reader.GetInt32(0);
                 // Guarda la información del usuario en la sesión
-                Session["userUsuario"] = reader.GetString(2);
+                Session["userUsuario"] = reader.GetString(1);
             }
 
             // Cierra la conexión

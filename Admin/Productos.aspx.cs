@@ -19,9 +19,9 @@ public class MenusController : Page
     private string selectedCategoria;
 
     // Conexión P/Hugo
-    // string connectionString = "Server=localhost;Database=bdtaque;Uid=root;Pwd=toor;SSLMode=preferred";
+     string connectionString = "Server=localhost;Database=bdtaque;Uid=root;Pwd=toor;SSLMode=preferred";
     //Conexión P/Diego
-    string connectionString = "Server=localhost;Database=bdtaque;Uid=root;Pwd=;SSLMode=preferred";
+    //string connectionString = "Server=localhost;Database=bdtaque;Uid=root;Pwd=;SSLMode=preferred";
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
