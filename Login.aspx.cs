@@ -52,55 +52,55 @@ public class Login : Page
     }
 
     private bool UserExists(string usuario, string password)
+{
+    // Cadena de conexión P/Diego 
+    string connectionString = "Server=localhost;Database=bdtaque;Uid=root;Pwd=toor;SSLMode=preferred";
+
+    // Conecta a la base de datos
+    MySqlConnection conn = new MySqlConnection(connectionString);
+    conn.Open();
+
+    // Consulta para verificar si el usuario existe y obtener el campo tipoDeAcceso
+    string query = "SELECT * FROM Usuarios WHERE Usuarios = @usuario AND Password = @password";
+    
+    // Ejecuta la consulta
+    MySqlCommand cmd = new MySqlCommand(query, conn);
+    cmd.Parameters.AddWithValue("@usuario", usuario);
+    cmd.Parameters.AddWithValue("@password", password);
+    
+    MySqlDataReader reader = cmd.ExecuteReader();
+
+    // Si el usuario existe, devuelve true
+    if (reader.Read())
     {
-        // Cadena de conexión P/Hugo
-        // string connectionString = "Server=localhost;Database=bdtaque;Uid=root;Pwd=toor;SSLMode=preferred";
+        // Obtén el valor del campo "tipoDeAcceso"
+        string tipoDeAcceso = reader["Rol"].ToString();
 
-        // Cadena de conexión P/Diego 
-        string connectionString = "Server=localhost;Database=bdtaque;Uid=root;Pwd=toor;SSLMode=preferred";
-
-        // Conecta a la base de datos
-        MySqlConnection conn = new MySqlConnection(connectionString);
-        conn.Open();
-
-        // Consulta para verificar si el usuario existe
-        string query = "SELECT * FROM Usuarios WHERE Usuarios = '" + usuario + "' AND Password = '" + password + "'";
-
-        // Ejecuta la consulta
-        MySqlCommand cmd = new MySqlCommand(query, conn);
-        MySqlDataReader reader = cmd.ExecuteReader();
-
-        // Si el usuario existe, devuelve true
-        if (reader.Read())
+        if (tipoDeAcceso == "Administrador")
         {
-            // Si el ID es igual a 1, el usuario es el administrador
-            if (reader.GetInt32(0) == 1)
-            {
-                Session["Administrador"] = true;
-
-                // Guarda el ID del usuario en la sesión
-                Session["Id"] = reader.GetInt32(0);
-                // Guarda la información del usuario en la sesión
-                Session["userUsuario"] = reader.GetString(1);
-
-                Response.Redirect("Admin/Inicio.aspx");
-            }
-            else
-            {
-                Session["Mesero"] = true;
-
-                // Guarda el ID del usuario en la sesión
-                Session["Id"] = reader.GetInt32(0);
-                // Guarda la información del usuario en la sesión
-                Session["userUsuario"] = reader.GetString(1);
-            }
-
-            // Cierra la conexión
-            conn.Close();
-            return true;
+            Session["Administrador"] = true;
+            Response.Redirect("Admin/Inicio.aspx");
         }
-        return false;
+        else if (tipoDeAcceso == "Mesero")
+        {
+            Session["Mesero"] = true;
+        }
+
+        // Guarda el ID del usuario en la sesión
+        Session["Id"] = reader.GetInt32(0);
+        // Guarda la información del usuario en la sesión
+        Session["userUsuario"] = reader.GetString(1);
+
+        // Cierra la conexión
+        conn.Close();
+        return true;
     }
+    
+    // Cierra la conexión
+    conn.Close();
+    return false;
+}
+
 
     public string GetMd5Hash(string input)
     {

@@ -73,8 +73,6 @@ public class MenusController : Page
             string password = txtPasswordAlta.Text;
             string categoria = ddlCategoriaAlta.SelectedValue;
 
-            string hashedPassword = GetMd5Hash(password);
-
             if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(nombre) || string.IsNullOrEmpty(categoria))
             {
                 // User tiene contenido? = No
@@ -92,7 +90,7 @@ public class MenusController : Page
                     {
                         // Parametrizar los valores
                         cmd.Parameters.AddWithValue("@Usuarios", usuario);
-                        cmd.Parameters.AddWithValue("@Password", hashedPassword);
+                        cmd.Parameters.AddWithValue("@Password", password);
                         cmd.Parameters.AddWithValue("@Nombre", nombre);
                         cmd.Parameters.AddWithValue("@Rol", categoria);
                         // Ejecutar la consulta
