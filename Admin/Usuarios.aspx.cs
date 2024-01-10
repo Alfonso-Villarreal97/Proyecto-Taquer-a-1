@@ -219,11 +219,6 @@ public class MenusController : Page
            //Manejo de excepcion
         }
     }
-    protected void btnLimpiar_Click(object sender, EventArgs e)
-    {
-        LimpiarCampos();
-        BloquearTextFields();
-    }
     private void LimpiarCampos()
     {
         txtNombre.Text = string.Empty;

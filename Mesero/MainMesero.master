@@ -19,10 +19,7 @@
                     <asp:LinkButton runat="server" OnClick="lnkInicio_Click" Text="Inicio" />
                 </li>
                 <li>
-                    <asp:LinkButton runat="server" OnClick="lnkOrden_Click" Text="Orden" />
-                </li>
-                <li>
-                    <asp:LinkButton runat="server" OnClick="lnkMenu_Click" Text="Menu" />
+                    <asp:LinkButton runat="server" OnClick="lnkMenu_Click" Text="Orden" />
                 </li>
                 <li>
                     <asp:LinkButton runat="server" OnClick="lnkSalir_Click" Text="Salir" />

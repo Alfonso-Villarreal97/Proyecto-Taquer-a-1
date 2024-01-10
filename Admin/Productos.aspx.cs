@@ -234,12 +234,7 @@ public class MenusController : Page
         }
     }
 
-    protected void btnLimpiarMenu_Click(object sender, EventArgs e)
-    {
-        LimpiarCampos();
-        BloquearTextFields();
-    }
-
+    
     protected void GridViewProductos_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         if (e.CommandName == "Select")

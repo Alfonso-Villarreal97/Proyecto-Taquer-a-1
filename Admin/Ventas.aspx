@@ -15,19 +15,17 @@
 
             <div class="contenido-ventas">
                 <div class="search">
-                    <label>Buscar venta:</label>
+                    <label>Buscar venta en la fecha:</label>
                 </div>
 
                 <div class="calendarios">
-                    <div class="fechaDel">
+                    
                         <label for="txtFechaDel">Del:</label>
-                        <asp:TextBox ID="txtFechaDel" runat="server" type="date"></asp:TextBox>
-                    </div>
-
-                    <div class="fechaAl">
+                        <asp:TextBox ID="txtFechaDel" runat="server" type="date"></asp:TextBox>   
+                    
                         <label for="txtFechaAl">Al:</label>
                         <asp:TextBox ID="txtFechaAl" runat="server" type="date"></asp:TextBox>
-                    </div>
+                    
                     
                     <asp:Button ID="btnBuscar" runat="server" Text="Buscar" OnClick="btnBuscar_Click" />
 

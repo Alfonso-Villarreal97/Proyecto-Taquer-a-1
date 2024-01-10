@@ -42,9 +42,6 @@
                         <asp:ListItem Text="- Seleccionar -" Value="" />
                     </asp:DropDownList>
                     <asp:Button runat="server" ID="btnFindUser" Text="Buscar" OnClick="btnFindUser_click" CssClass="btnBuscar" />
-                    <div class="addMenu">
-                        <a href="#openModalAdd" class="enlacesUsuarios">Agregar usuario</a>
-                    </div>
                 </div>
 
                 <div class="inputs">
@@ -63,12 +60,13 @@
                 </div>
 
                 <div class="buttons">
+                    <div class="addMenu">
+                        <a href="#openModalAdd" class="enlacesUsuarios">Agregar usuario</a>
+                    </div>
                     <asp:Button runat="server" ID="btnUpdate" Text="Actualizar usuario" 
                     OnClick="btnActualizarUser_Click" CssClass="styled-button" />
                     <asp:Button runat="server" ID="btnDelete" Text="Eliminar usuario" 
                     OnClick="btnEliminarUser_Click" CssClass="styled-button" />
-                    <asp:Button runat="server" ID="btnLimpiar" Text="Limpiar campos" 
-                    OnClick="btnLimpiar_Click" CssClass="styled-button" />
                 </div>
                
                 <asp:GridView ID="GridViewUsuarios" runat="server" AutoGenerateColumns="False" CssClass="styled-grid"

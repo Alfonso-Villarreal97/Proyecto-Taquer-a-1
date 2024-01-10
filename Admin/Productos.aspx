@@ -41,10 +41,7 @@
                 <asp:DropDownList runat="server" ID="ddlCategorias" CssClass="ddlFiltrado" AutoPostBack="true">
                     <asp:ListItem Text="- Seleccionar -" Value="" />
                 </asp:DropDownList>
-                <asp:Button runat="server" ID="btnFindProd" Text="Buscar" OnClick="btnFindMenu_Click" CssClass="btnBuscar" />
-                <div class="addMenu">
-                    <a href="#openModalAdd" class="enlacesUsuarios">Agregar al menu</a>
-                </div>
+                <asp:Button runat="server" ID="btnFindProd" Text="Buscar" OnClick="btnFindMenu_Click" CssClass="btnBuscar" />                
             </div>
 
             <div class="inputs">
@@ -71,12 +68,13 @@
             </div>
 
             <div class="buttons">
+                
+                    <a href="#openModalAdd" class="enlacesUsuarios">Agregar al menu</a>
+                
                 <asp:Button runat="server" ID="btnUpdate" Text="Actualizar producto"
                     OnClick="btnActualizarMenu_Click" CssClass="styled-button" />
                 <asp:Button runat="server" ID="btnDelete" Text="Eliminar producto"
                     OnClick="btnEliminarMenu_Click" CssClass="styled-button" />
-                <asp:Button runat="server" ID="btnLimpiar" Text="Limpiar campos"
-                    OnClick="btnLimpiarMenu_Click" CssClass="styled-button" />
             </div>
 
             <asp:GridView ID="GridViewProductos" runat="server" AutoGenerateColumns="False" CssClass="styled-grid"
