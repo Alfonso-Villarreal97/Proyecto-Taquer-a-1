@@ -7,10 +7,10 @@ CREATE TABLE Usuarios(
     Rol VARCHAR(20) NOT NULL
 );
 
-INSERT INTO Usuarios (Usuarios, Password, Nombre, Apellido, Rol) VALUES
-('Usuario1', 'Contraseña1', 'Dummy1', 'Dummylon', 'Administrador'),
-('Usuario2', 'Contraseña2', 'Dummy2', 'Dummygod', 'Mesero'),
-('Usuario3', 'Contraseña3', 'Dummy3', 'Dummyleon', 'Mesero');
+INSERT INTO Usuarios (Usuarios, Password, Nombre, Rol) VALUES
+('Usuario1', 'Contraseña1', 'Dummy1', 'Administrador'),
+('Usuario2', 'Contraseña2', 'Dummy2', 'Mesero'),
+('Usuario3', 'Contraseña3', 'Dummy3', 'Mesero');
 
 SELECT * FROM Usuarios;
 
